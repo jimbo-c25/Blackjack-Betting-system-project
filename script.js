@@ -85,11 +85,16 @@ function betSystem(currencyInput) {
     currencyInput = parseInt(document.getElementById("currency-to-bet").value);
 
     if (currencyInput > playerCurrency) {
-        alert("INSUFFICIENT FUNDS!!");
-        return currentCurrency.innerText = `Current Funds: $${playerCurrency}`;
+        alert("INSUFFICIENT FUNDS!! RESTART PAGE TO PLAY AGAIN");
+        currentCurrency.innerText = `Current Funds: $${playerCurrency}`;
+        canBet = false;
+        canHit = false;
+        canStay = false;
     } else if (!currencyInput) {
         alert("ENTER AN AMOUNT TO PLAY!!");
-    };
+    } else if (currencyInput <= 0) {
+        alert("ENTER VALID AMOUNT TO PLAY!!!");
+    }
 
     document.getElementById("player-sum").innerText = `$${currencyInput}`;
     playerCurrency -= currencyInput;
@@ -200,24 +205,24 @@ function resultCheck() {
 
         if (playerSum > 21) {
             message = "YOU LOSE!!";
-            document.getElementById("player-sum").innerText = playerSum + " -$" + currencyInput;
+            document.getElementById("player-sum").innerText = playerSum + " -$ " + currencyInput;
             currentCurrency.innerText = `Current Funds: $${playerCurrency}`;
         }
         else if (dealerSum > 21) {
             message = "YOU WIN!!";
-            document.getElementById("player-sum").innerText = playerSum + " +$" + currencyInput;
+            document.getElementById("player-sum").innerText = playerSum + " +$ " + currencyInput;
             playerCurrency += parseInt(currencyInput * 2);
             currentCurrency.innerText = `Current Funds: $${playerCurrency}`;
         }
         else if (playerSum === dealerSum) {
             message = "IT'S A TIE!!";
-            document.getElementById("player-sum").innerText = playerSum + " +$0";
+            document.getElementById("player-sum").innerText = playerSum + " + $0";
             playerCurrency = playerCurrency + parseInt(currencyInput);
             currentCurrency.innerText = `Current Funds: $${playerCurrency}`;
         }
         else if (playerSum > dealerSum) {
             message = "YOU WIN!!";
-            document.getElementById("player-sum").innerText = playerSum + " +$" + currencyInput;
+            document.getElementById("player-sum").innerText = playerSum + " +$ " + currencyInput;
             playerCurrency += parseInt(currencyInput * 2);
             currentCurrency.innerText = `Current Funds: $${playerCurrency}`;
         }
